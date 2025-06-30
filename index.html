@@ -4,389 +4,429 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🪶 The Little Wizard's Quill ✨</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-```
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-    }
-
-    .container {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        border-radius: 20px;
-        padding: 40px;
-        max-width: 800px;
-        width: 100%;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        animation: fadeIn 0.8s ease-out;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(30px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    .header {
-        text-align: center;
-        margin-bottom: 30px;
-    }
-
-    .title {
-        font-size: 2.5rem;
-        color: #4a5568;
-        margin-bottom: 10px;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .subtitle {
-        font-size: 1.1rem;
-        color: #718096;
-        line-height: 1.6;
-        max-width: 600px;
-        margin: 0 auto;
-    }
-
-    .input-section {
-        margin-bottom: 30px;
-    }
-
-    .input-container {
-        position: relative;
-        margin-bottom: 20px;
-    }
-
-    .input-field {
-        width: 100%;
-        padding: 20px;
-        font-size: 1.1rem;
-        border: 3px solid #e2e8f0;
-        border-radius: 15px;
-        background: white;
-        transition: all 0.3s ease;
-        outline: none;
-    }
-
-    .input-field:focus {
-        border-color: #667eea;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        transform: translateY(-2px);
-    }
-
-    .generate-btn {
-        width: 100%;
-        padding: 18px;
-        font-size: 1.2rem;
-        font-weight: 600;
-        color: white;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border: none;
-        border-radius: 15px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .generate-btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-    }
-
-    .generate-btn:active {
-        transform: translateY(-1px);
-    }
-
-    .generate-btn:disabled {
-        opacity: 0.7;
-        cursor: not-allowed;
-        transform: none;
-    }
-
-    .loading {
-        display: none;
-        text-align: center;
-        margin: 20px 0;
-        color: #667eea;
-        font-style: italic;
-    }
-
-    .loading.active {
-        display: block;
-    }
-
-    .spinner {
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        border: 3px solid rgba(102, 126, 234, 0.3);
-        border-radius: 50%;
-        border-top-color: #667eea;
-        animation: spin 1s ease-in-out infinite;
-        margin-right: 10px;
-    }
-
-    @keyframes spin {
-        to { transform: rotate(360deg); }
-    }
-
-    .story-output {
-        background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
-        border-radius: 15px;
-        padding: 30px;
-        margin-top: 30px;
-        min-height: 200px;
-        border-left: 5px solid #667eea;
-        display: none;
-        animation: slideIn 0.5s ease-out;
-    }
-
-    .story-output.active {
-        display: block;
-    }
-
-    @keyframes slideIn {
-        from { opacity: 0; transform: translateX(-30px); }
-        to { opacity: 1; transform: translateX(0); }
-    }
-
-    .story-title {
-        font-size: 1.4rem;
-        color: #4a5568;
-        margin-bottom: 15px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .story-content {
-        font-size: 1.1rem;
-        line-height: 1.8;
-        color: #2d3748;
-        white-space: pre-wrap;
-    }
-
-    .examples {
-        margin-top: 20px;
-        padding: 20px;
-        background: rgba(102, 126, 234, 0.1);
-        border-radius: 10px;
-    }
-
-    .examples h3 {
-        color: #4a5568;
-        margin-bottom: 10px;
-    }
-
-    .example-buttons {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-
-    .example-btn {
-        padding: 8px 15px;
-        background: white;
-        border: 2px solid #667eea;
-        color: #667eea;
-        border-radius: 20px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        font-size: 0.9rem;
-    }
-
-    .example-btn:hover {
-        background: #667eea;
-        color: white;
-        transform: translateY(-2px);
-    }
-
-    .error {
-        background: #fed7d7;
-        color: #c53030;
-        padding: 15px;
-        border-radius: 10px;
-        margin-top: 20px;
-        border-left: 5px solid #c53030;
-    }
-
-    @media (max-width: 600px) {
-        .container {
-            padding: 20px;
-            margin: 10px;
-        }
-        
-        .title {
-            font-size: 2rem;
-        }
-        
-        .input-field, .generate-btn {
-            padding: 15px;
-        }
-    }
-</style>
-```
-
+    <title>Interactive Story Explorer</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide-react@0.263.1/dist/esm/lucide-react.js" type="module"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1 class="title">🪶 The Little Wizard's Quill ✨</h1>
-            <p class="subtitle">
-                Transform random keystrokes into magical stories! Type anything—gibberish, random characters, 
-                or what your little one typed—and watch AI find hidden meaning and create enchanting tales.
-            </p>
-        </div>
+    <div id="root"></div>
 
 ```
-    <div class="input-section">
-        <div class="input-container">
-            <input 
-                type="text" 
-                id="userInput" 
-                class="input-field" 
-                placeholder="Type random characters... e.g., kjhgfd, asdfgh, or Hdfclife"
-                maxlength="200"
-            >
-        </div>
-        
-        <button id="generateBtn" class="generate-btn">
-            ✨ Reveal the Hidden Story ✨
-        </button>
-    </div>
-
-    <div class="examples">
-        <h3>Try these examples:</h3>
-        <div class="example-buttons">
-            <button class="example-btn" data-example="kjhgfdsa">kjhgfdsa</button>
-            <button class="example-btn" data-example="Hdfclife">Hdfclife</button>
-            <button class="example-btn" data-example="qqwweerr">qqwweerr</button>
-            <button class="example-btn" data-example="zxcvbnm">zxcvbnm</button>
-            <button class="example-btn" data-example="123abc">123abc</button>
-            <button class="example-btn" data-example="mmmkkk">mmmkkk</button>
-        </div>
-    </div>
-
-    <div class="loading" id="loading">
-        <div class="spinner"></div>
-        Consulting the quill... ✨
-    </div>
-
-    <div class="story-output" id="storyOutput">
-        <h2 class="story-title">
-            <span>🪶</span>
-            <span>Your Mystical Story</span>
-        </h2>
-        <div class="story-content" id="storyContent"></div>
-    </div>
-</div>
-
-<script>
-    // Simulated AI story generation (replace with actual API call)
+<script type="text/babel">
+    const { useState, useCallback, useMemo } = React;
+    
+    // Lucide React icons
+    const Book = () => (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>
+        </svg>
+    );
+    
+    const Search = () => (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.35-4.35"/>
+        </svg>
+    );
+    
+    const RotateCcw = () => (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+            <path d="M3 3v5h5"/>
+        </svg>
+    );
+    
+    const Lightbulb = () => (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 12 2c-3.3 0-6 2.7-6 6 0 1.3.5 2.6 1.5 3.5.8.8 1.3 1.5 1.5 2.5"/>
+            <path d="M9 18h6"/>
+            <path d="M10 22h4"/>
+        </svg>
+    );
+    
+    const Star = () => (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+        </svg>
+    );
+    
+    const Heart = () => (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/>
+        </svg>
+    );
+    
+    const Wand2 = () => (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21.64 3.64a.75.75 0 0 0-1.06-1.06l-14 14a.75.75 0 0 0 1.06 1.06l14-14Z"/>
+            <path d="M8 2v4"/>
+            <path d="M2 8h4"/>
+            <path d="M20 16v4"/>
+            <path d="M16 20h4"/>
+        </svg>
+    );
+    
+    // Simulated story generation logic
     const storyTemplates = [
         {
             pattern: /[a-z]{4,}/i,
-            generator: (input) => `In the mystical land of ${input.charAt(0).toUpperCase() + input.slice(1)}, there lived a curious creature named Whiskers. Every morning, Whiskers would venture into the enchanted forest, searching for the legendary Crystal of Understanding.\n\nOne day, while following a trail of shimmering letters that spelled "${input}", Whiskers discovered a hidden grove where words grew on trees like fruit. The ancient Tree of Stories whispered, "Those who can find meaning in chaos possess the greatest magic of all."\n\nWhiskers learned that even the most random combinations of letters held secret messages from the universe, waiting to be discovered by those brave enough to look beyond the surface.`
+            generator: (input) => ({
+                id: Date.now(),
+                title: `The Enchanted Tale of ${input.charAt(0).toUpperCase() + input.slice(1)}`,
+                icon: '🪶',
+                difficulty: 'Medium',
+                content: `In the mystical land of ${input.charAt(0).toUpperCase() + input.slice(1)}, there lived a curious creature named Whiskers. Every morning, Whiskers ventured into the enchanted forest, searching for the legendary Crystal of Understanding.\n\nOne day, while following a trail of shimmering letters that spelled "${input}", Whiskers discovered a hidden grove where words grew on trees like fruit. The ancient Tree of Stories whispered, "Those who find meaning in chaos possess the greatest magic of all."\n\nWhiskers learned that even random combinations of letters held secret messages, waiting to be discovered by the brave.`, 
+                targetWords: ['mystical', 'creature', 'enchanted', 'forest', 'legendary', 'crystal', 'understanding', 'hidden', 'grove', 'words', 'trees', 'magic', 'secret', 'messages', 'brave'],
+                color: 'from-indigo-400 to-purple-500'
+            })
         },
         {
             pattern: /\d/,
-            generator: (input) => `Captain Nova's spaceship received a mysterious transmission: "${input}". The ship's AI couldn't decode it, but Nova knew better—sometimes the most important messages come disguised as random noise.\n\nAs Nova input the sequence into the ancient Galactic Archive, something extraordinary happened. The letters and numbers rearranged themselves, revealing coordinates to a lost planet where creativity itself was born.\n\nThe journey to this world would be perilous, but Nova understood that within every seemingly meaningless string of characters lay the seeds of infinite possibility, waiting for the right explorer to unlock their secrets.`
+            generator: (input) => ({
+                id: Date.now(),
+                title: `Captain Nova's Cosmic Code: ${input}`,
+                icon: '🚀',
+                difficulty: 'Hard',
+                content: `Captain Nova's spaceship received a mysterious transmission: "${input}". The ship's AI couldn't decode it, but Nova knew better—sometimes the most important messages come disguised as random noise.\n\nAs Nova input the sequence into the Galactic Archive, the letters and numbers revealed coordinates to a lost planet where creativity was born.\n\nThe journey would be perilous, but Nova understood that within every string of characters lay infinite possibilities.`, 
+                targetWords: ['spaceship', 'mysterious', 'transmission', 'decode', 'messages', 'galactic', 'archive', 'coordinates', 'planet', 'creativity', 'journey', 'perilous', 'infinite', 'possibilities'],
+                color: 'from-blue-400 to-cyan-500'
+            })
         },
         {
             pattern: /.*/,
-            generator: (input) => `In Professor Luna's Laboratory of Lost Languages, the string "${input}" appeared on her quantum typewriter—a device that translated thoughts from parallel dimensions.\n\nAs Luna studied the mysterious characters, she realized they weren't random at all. They were a greeting from a civilization that communicated entirely through what others might consider gibberish. Each letter combination was a window into their world of pure imagination.\n\nWith trembling hands, Luna typed back her own string of "nonsense," beginning the first conversation between worlds that spoke the language of creative chaos. Sometimes, she thought, the most profound communication happens when we abandon the need to make conventional sense.`
+            generator: (input) => ({
+                id: Date.now(),
+                title: `Luna's Laboratory of ${input}`,
+                icon: '🔬',
+                difficulty: 'Easy',
+                content: `In Professor Luna's Laboratory of Lost Languages, the string "${input}" appeared on her quantum typewriter.\n\nAs Luna studied the mysterious characters, she realized they were a greeting from a civilization that spoke through creative chaos. Each letter was a window into a world of pure imagination.\n\nLuna typed back her own string, beginning the first conversation between worlds that spoke the language of wonder.`, 
+                targetWords: ['laboratory', 'mysterious', 'characters', 'greeting', 'civilization', 'creative', 'chaos', 'imagination', 'conversation', 'worlds', 'wonder', 'language'],
+                color: 'from-pink-400 to-red-500'
+            })
         }
     ];
 
-    function generateStory(input) {
-        // Find the best matching template
-        const template = storyTemplates.find(t => t.pattern.test(input)) || storyTemplates[storyTemplates.length - 1];
-        return template.generator(input);
-    }
+    const InteractiveStoryApp = () => {
+        const [selectedStory, setSelectedStory] = useState(null);
+        const [searchTerm, setSearchTerm] = useState('');
+        const [foundWords, setFoundWords] = useState([]);
+        const [score, setScore] = useState(0);
+        const [attempts, setAttempts] = useState(0);
+        const [gameMode, setGameMode] = useState('search');
+        const [inputText, setInputText] = useState('');
+        const [stories, setStories] = useState([
+            {
+                id: 1,
+                title: "The Magic Forest Adventure",
+                icon: "🌲",
+                difficulty: "Easy",
+                content: `Once upon a time, in a beautiful magic forest, there lived a little rabbit named Luna. Luna loved to explore and make friends with all the animals in the forest.\n\nOne sunny morning, Luna discovered a secret path covered with colorful flowers. The path led to a magical garden where a golden treasure chest waited under a rainbow.\n\nInside the chest, Luna found the most wonderful surprise - seeds that would grow into anything she could imagine! From that day on, Luna and her friends had the most amazing adventures in their magical garden.`,
+                targetWords: ['beautiful', 'magic', 'forest', 'little', 'rabbit', 'animals', 'flowers', 'adventure', 'secret', 'rainbow', 'treasure', 'golden', 'friends', 'magical', 'garden', 'happy'],
+                color: "from-green-400 to-blue-500"
+            },
+            {
+                id: 2,
+                title: "Captain Sparkle's Space Journey",
+                icon: "🚀",
+                difficulty: "Medium",
+                content: `Captain Sparkle zoomed through the bright stars in her amazing spaceship. She was on an important mission to find the lost planet of Rainbow Cookies.\n\nAlong the way, she met friendly alien creatures who spoke in musical notes. They told her about a dangerous black hole that could trap spaceships forever.\n\nWith courage and wisdom, Captain Sparkle navigated around the black hole and discovered that the Rainbow Cookie planet was actually a giant birthday cake floating in space! She shared the delicious cake with all her new alien friends.`,
+                targetWords: ['captain', 'stars', 'spaceship', 'mission', 'planet', 'alien', 'creatures', 'musical', 'dangerous', 'black', 'hole', 'courage', 'wisdom', 'birthday', 'cake', 'delicious'],
+                color: "from-purple-400 to-pink-500"
+            },
+            {
+                id: 3,
+                title: "Princess Maya and the Dragon",
+                icon: "👑",
+                difficulty: "Hard",
+                content: `Princess Maya lived in a magnificent castle surrounded by mountains and rivers. One day, she heard that a lonely dragon was crying in the nearby cave because he had no friends.\n\nInstead of being scared, Princess Maya decided to visit the dragon with homemade cookies and warm tea. The dragon, named Ember, was surprised by her kindness and explained that he was actually very gentle and loved to paint pictures.\n\nPrincess Maya and Ember became the best of friends. Together, they painted beautiful murals on the castle walls and taught everyone in the kingdom that friendship comes in all shapes and sizes.`,
+                targetWords: ['princess', 'castle', 'mountains', 'dragon', 'lonely', 'cave', 'cookies', 'tea', 'kindness', 'gentle', 'paint', 'pictures', 'friendship', 'beautiful', 'kingdom', 'shapes'],
+                color: "from-yellow-400 to-red-500"
+            }
+        ]);
 
-    function simulateAPICall(input) {
-        return new Promise((resolve) => {
-            // Simulate API delay
-            setTimeout(() => {
-                const story = generateStory(input);
-                resolve({ story });
-            }, 1500 + Math.random() * 1000); // 1.5-2.5 seconds
-        });
-    }
+        const spellingCorrections = {
+            'bewtiful': 'beautiful', 'beutiful': 'beautiful', 'beautifull': 'beautiful',
+            'magik': 'magic', 'majic': 'magic', 'magick': 'magic',
+            'freinds': 'friends', 'freands': 'friends', 'frends': 'friends',
+            'animls': 'animals', 'anmals': 'animals', 'anamals': 'animals',
+            'adventur': 'adventure', 'addventure': 'adventure', 'advenchure': 'adventure',
+            'secrit': 'secret', 'secert': 'secret', 'secrect': 'secret',
+            'castel': 'castle', 'castil': 'castle', 'casle': 'castle',
+            'prinses': 'princess', 'princes': 'princess', 'prinsess': 'princess',
+            'dragn': 'dragon', 'dragun': 'dragon', 'dragan': 'dragon',
+            'captin': 'captain', 'captian': 'captain', 'captan': 'captain',
+            'spacship': 'spaceship', 'spaseship': 'spaceship', 'spacchip': 'spaceship'
+        };
 
-    // Event listeners
-    document.getElementById('generateBtn').addEventListener('click', async function() {
-        const input = document.getElementById('userInput').value.trim();
-        
-        if (!input) {
-            alert('Please enter some text first! 🤔');
-            return;
-        }
+        const correctSpelling = useCallback((word) => {
+            const lowerWord = word.toLowerCase();
+            return spellingCorrections[lowerWord] || word;
+        }, []);
 
-        const btn = this;
-        const loading = document.getElementById('loading');
-        const storyOutput = document.getElementById('storyOutput');
-        const storyContent = document.getElementById('storyContent');
+        const findWordInStory = useCallback((searchWord, story) => {
+            if (!story) return false;
+            const correctedWord = correctSpelling(searchWord);
+            const storyText = story.content.toLowerCase();
+            const targetWords = story.targetWords.map(w => w.toLowerCase());
+            return storyText.includes(correctedWord.toLowerCase()) || 
+                   targetWords.includes(correctedWord.toLowerCase());
+        }, [correctSpelling]);
 
-        // Show loading state
-        btn.disabled = true;
-        btn.textContent = 'Consulting the Quill...';
-        loading.classList.add('active');
-        storyOutput.classList.remove('active');
+        const handleSearch = useCallback(() => {
+            if (!searchTerm.trim() || !selectedStory) return;
+            const correctedWord = correctSpelling(searchTerm.trim());
+            const wordExists = findWordInStory(correctedWord, selectedStory);
+            setAttempts(prev => prev + 1);
+            if (wordExists && !foundWords.includes(correctedWord.toLowerCase())) {
+                setFoundWords(prev => [...prev, correctedWord.toLowerCase()]);
+                setScore(prev => prev + 10);
+                if (correctedWord.toLowerCase() !== searchTerm.toLowerCase()) {
+                    alert(`Great! I found "${correctedWord}" in the story! (I corrected "${searchTerm}" to "${correctedWord}")`);
+                }
+            }
+            setSearchTerm('');
+        }, [searchTerm, selectedStory, correctSpelling, findWordInStory, foundWords]);
 
-        try {
-            // In a real app, replace this with your actual API call
-            // const response = await fetch('/api/generate-story', { ... });
-            const result = await simulateAPICall(input);
-            
-            // Display the story
-            storyContent.textContent = result.story;
-            storyOutput.classList.add('active');
-            
-        } catch (error) {
-            // Handle errors
-            storyContent.innerHTML = `<div class="error">
-                <strong>Oops!</strong> The quill is out of ink. Please try again in a moment! 🪶
-            </div>`;
-            storyOutput.classList.add('active');
-        } finally {
-            // Reset UI
-            btn.disabled = false;
-            btn.textContent = '✨ Reveal the Hidden Story ✨';
-            loading.classList.remove('active');
-        }
-    });
+        const resetGame = useCallback(() => {
+            setFoundWords([]);
+            setScore(0);
+            setAttempts(0);
+            setSearchTerm('');
+        }, []);
 
-    // Example buttons
-    document.querySelectorAll('.example-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const example = this.dataset.example;
-            document.getElementById('userInput').value = example;
-            document.getElementById('userInput').focus();
-        });
-    });
+        const generateStory = useCallback(() => {
+            if (!inputText.trim()) {
+                alert('Please enter some text to generate a story! 🤔');
+                return;
+            }
+            const template = storyTemplates.find(t => t.pattern.test(inputText)) || storyTemplates[storyTemplates.length - 1];
+            const newStory = template.generator(inputText);
+            setStories(prev => [...prev, newStory]);
+            setSelectedStory(newStory);
+            setGameMode('search');
+            setInputText('');
+        }, [inputText]);
 
-    // Enter key support
-    document.getElementById('userInput').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            document.getElementById('generateBtn').click();
-        }
-    });
+        const progressPercentage = useMemo(() => {
+            if (!selectedStory) return 0;
+            return Math.round((foundWords.length / selectedStory.targetWords.length) * 100);
+        }, [foundWords.length, selectedStory]);
 
-    // Auto-focus input
-    document.getElementById('userInput').focus();
+        const getHints = useCallback(() => {
+            if (!selectedStory) return [];
+            return selectedStory.targetWords
+                .filter(word => !foundWords.includes(word.toLowerCase()))
+                .slice(0, 3);
+        }, [selectedStory, foundWords]);
+
+        return (
+            <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 p-4">
+                <div className="max-w-6xl mx-auto">
+                    <div className="text-center mb-8">
+                        <h1 className="text-4xl font-bold text-gray-800 mb-2 flex items-center justify-center gap-3">
+                            <Book className="text-purple-600" />
+                            Interactive Story Explorer
+                        </h1>
+                        <p className="text-gray-600">Discover hidden words or create your own magical stories!</p>
+                    </div>
+
+                    <div className="mb-6 flex justify-center gap-4">
+                        <button
+                            onClick={() => setGameMode('search')}
+                            className={`px-4 py-2 rounded-lg ${gameMode === 'search' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700'}`}
+                        >
+                            Play Word Search
+                        </button>
+                        <button
+                            onClick={() => setGameMode('generate')}
+                            className={`px-4 py-2 rounded-lg ${gameMode === 'generate' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700'}`}
+                        >
+                            Generate Story
+                        </button>
+                    </div>
+
+                    {gameMode === 'generate' ? (
+                        <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
+                            <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                                <Wand2 className="text-purple-600" />
+                                Create Your Own Story
+                            </h2>
+                            <div className="flex gap-4">
+                                <input
+                                    type="text"
+                                    value={inputText}
+                                    onChange={(e) => setInputText(e.target.value)}
+                                    onKeyPress={(e) => e.key === 'Enter' && generateStory()}
+                                    placeholder="Type random characters (e.g., kjhgfdsa)..."
+                                    className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-500 focus:outline-none text-lg"
+                                />
+                                <button
+                                    onClick={generateStory}
+                                    disabled={!inputText.trim()}
+                                    className="bg-purple-600 hover:bg-purple-700 disabled:bg-gray-400 text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors"
+                                >
+                                    <Wand2 size={20} />
+                                    Generate Story
+                                </button>
+                            </div>
+                        </div>
+                    ) : !selectedStory ? (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {stories.map((story) => (
+                                <div
+                                    key={story.id}
+                                    onClick={() => setSelectedStory(story)}
+                                    className={`cursor-pointer transform hover:scale-105 transition-all duration-300 rounded-xl p-6 bg-gradient-to-br ${story.color} text-white shadow-lg hover:shadow-xl`}
+                                >
+                                    <div className="text-4xl mb-4 text-center">{story.icon}</div>
+                                    <h3 className="text-xl font-bold mb-2 text-center">{story.title}</h3>
+                                    <div className="flex items-center justify-between text-sm opacity-90">
+                                        <span className="bg-white bg-opacity-20 px-2 py-1 rounded">{story.difficulty}</span>
+                                        <span>{story.targetWords.length} words to find</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            <div className="lg:col-span-2">
+                                <div className={`rounded-xl p-6 bg-gradient-to-br ${selectedStory.color} text-white shadow-lg mb-6`}>
+                                    <div className="flex items-center justify-between mb-4">
+                                        <h2 className="text-2xl font-bold flex items-center gap-2">
+                                            <span className="text-3xl">{selectedStory.icon}</span>
+                                            {selectedStory.title}
+                                        </h2>
+                                        <button
+                                            onClick={() => setSelectedStory(null)}
+                                            className="bg-white bg-opacity-20 hover:bg-opacity-30 px-3 py-1 rounded-lg transition-colors"
+                                        >
+                                            ← Back
+                                        </button>
+                                    </div>
+                                    <div className="bg-white bg-opacity-10 rounded-lg p-4">
+                                        <p className="text-lg leading-relaxed whitespace-pre-line">{selectedStory.content}</p>
+                                    </div>
+                                </div>
+                                <div className="bg-white rounded-xl shadow-lg p-6">
+                                    <div className="flex gap-4 mb-4">
+                                        <div className="flex-1">
+                                            <input
+                                                type="text"
+                                                value={searchTerm}
+                                                onChange={(e) => setSearchTerm(e.target.value)}
+                                                onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+                                                placeholder="Type a word from the story... (spelling help included!)"
+                                                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-500 focus:outline-none text-lg"
+                                            />
+                                        </div>
+                                        <button
+                                            onClick={handleSearch}
+                                            disabled={!searchTerm.trim()}
+                                            className="bg-purple-600 hover:bg-purple-700 disabled:bg-gray-400 text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors"
+                                        >
+                                            <Search size={20} />
+                                            Search
+                                        </button>
+                                    </div>
+                                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
+                                        <p className="text-sm text-blue-800 flex items-center gap-2">
+                                            <Lightbulb size={16} />
+                                            <strong>Spelling Help:</strong> Don't worry about perfect spelling! I can help correct common misspellings.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="space-y-6">
+                                <div className="bg-white rounded-xl shadow-lg p-6">
+                                    <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                                        <Star className="text-yellow-500" />
+                                        Game Stats
+                                    </h3>
+                                    <div className="space-y-3">
+                                        <div className="flex justify-between">
+                                            <span className="text-gray-600">Score:</span>
+                                            <span className="font-bold text-purple-600">{score}</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span className="text-gray-600">Words Found:</span>
+                                            <span className="font-bold text-green-600">{foundWords.length}/{selectedStory.targetWords.length}</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span className="text-gray-600">Attempts:</span>
+                                            <span className="font-bold text-blue-600">{attempts}</span>
+                                        </div>
+                                        <div className="w-full bg-gray-200 rounded-full h-3 mt-4">
+                                            <div
+                                                className="bg-gradient-to-r from-green-400 to-blue-500 h-3 rounded-full transition-all duration-500"
+                                                style={{ width: `${progressPercentage}%` }}
+                                            ></div>
+                                        </div>
+                                        <p className="text-center text-sm text-gray-600">{progressPercentage}% Complete</p>
+                                    </div>
+                                    <button
+                                        onClick={resetGame}
+                                        className="w-full mt-4 bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 rounded-lg flex items-center justify-center gap-2 transition-colors"
+                                    >
+                                        <RotateCcw size={16} />
+                                        Reset Game
+                                    </button>
+                                </div>
+                                <div className="bg-white rounded-xl shadow-lg p-6">
+                                    <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                                        <Heart className="text-red-500" />
+                                        Found Words
+                                    </h3>
+                                    <div className="flex flex-wrap gap-2">
+                                        {foundWords.length > 0 ? (
+                                            foundWords.map((word, index) => (
+                                                <span
+                                                    key={index}
+                                                    className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium"
+                                                >
+                                                    {word}
+                                                </span>
+                                            ))
+                                        ) : (
+                                            <p className="text-gray-500 text-sm">No words found yet. Start searching!</p>
+                                        )}
+                                    </div>
+                                </div>
+                                <div className="bg-white rounded-xl shadow-lg p-6">
+                                    <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                                        <Lightbulb className="text-yellow-500" />
+                                        Hints
+                                    </h3>
+                                    <div className="space-y-2">
+                                        {getHints().length > 0 ? (
+                                            getHints().map((hint, index) => (
+                                                <div key={index} className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+                                                    <p className="text-sm text-yellow-800">
+                                                        Try looking for: <strong>{hint}</strong>
+                                                    </p>
+                                                </div>
+                                            ))
+                                        ) : (
+                                            <p className="text-gray-500 text-sm">
+                                                {foundWords.length === selectedStory.targetWords.length 
+                                                    ? "🎉 Congratulations! You found all the words!" 
+                                                    : "Keep searching for more words!"}
+                                            </p>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            </div>
+        );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<InteractiveStoryApp />);
 </script>
 ```
 
